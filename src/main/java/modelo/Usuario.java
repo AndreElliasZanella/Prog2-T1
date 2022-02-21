@@ -12,7 +12,7 @@ import java.util.Set;
  *
  * @author André
  */
-public class Usuario {
+public class Usuario implements Comparable<Usuario>{
     private int id;
     private String cpf;
     private String nome;
@@ -70,6 +70,11 @@ public class Usuario {
     
     public Set<Categoria> getCategorias() {
         return categorias;
+    }
+
+    @Override
+    public int compareTo(Usuario usu) {
+        return this.nome.compareTo(usu.getNome());
     }
     
 }

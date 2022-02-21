@@ -14,22 +14,7 @@
                 <Property name="text" type="java.lang.String" value="Criar Categoria"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Editar Categorias"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Credito"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Usuario"/>
-          </Properties>
         </Menu>
       </SubComponents>
     </Menu>
@@ -60,11 +45,13 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="botaoInserirValor" min="-2" pref="145" max="-2" attributes="0"/>
-              <EmptySpace pref="382" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="botaoExcluir" min="-2" pref="145" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="botaoSair" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+          <Component id="jScrollPane2" alignment="0" pref="702" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -75,6 +62,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botaoInserirValor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoSair" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -113,5 +101,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="botaoSair">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sair"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

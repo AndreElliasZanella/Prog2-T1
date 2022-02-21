@@ -6,6 +6,7 @@
 package controlador;
 
 import dao.UsuarioDAO;
+import exception.UsuarioException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import visao.TelaCadastrarUsuario;
@@ -43,7 +44,8 @@ public class ControladorCadastrarUsuario {
     
     public void salvarUsuario(){
         usuario = new Usuario(telaCadastrarUsuario.getCpf(), telaCadastrarUsuario.getNome(), Float.parseFloat(telaCadastrarUsuario.getReceita()), telaCadastrarUsuario.getSenha());
-        if(validarUsuarioVazio()){
+        try{
+            validarUsuarioVazio();
             if(validarUsuarioMap(usuario)){
                 if(UsuarioDAO.salvarUsuario(usuario)){
                     controladorLogin.inserirUsuarioMap(usuario);
@@ -58,24 +60,20 @@ public class ControladorCadastrarUsuario {
             }else{
                 telaCadastrarUsuario.exibirMensagem("Usuário já Cadastrado");
             }
-            
-        }
-        else {
-            telaCadastrarUsuario.exibirMensagem("Nome/CPF vazio");
-        }
-        
+        }catch(UsuarioException ex){
+            System.out.println(ex.getMessage());
+        }        
     }
     
-    public boolean validarUsuarioVazio(){
+    public void validarUsuarioVazio() throws UsuarioException{
         if (this.usuario.getCpf().equals(""))
-            return false;
+            throw new UsuarioException();
         if (this.usuario.getNome().equals(""))
-            return false;        
+            throw new UsuarioException();        
         if (this.usuario.getReceita() == 0)
-            return false;
+            throw new UsuarioException();
         if (this.usuario.getSenha().isEmpty())
-            return false;
-        return true;
+            throw new UsuarioException();
     }
     
     public boolean validarUsuarioMap(Usuario usu){

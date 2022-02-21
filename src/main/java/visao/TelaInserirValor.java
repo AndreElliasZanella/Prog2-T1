@@ -6,6 +6,7 @@
 package visao;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,6 +45,7 @@ public class TelaInserirValor extends javax.swing.JFrame {
     public void adicionarAcaoInserir(ActionListener acao){
         botaoInserir.addActionListener(acao);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +60,11 @@ public class TelaInserirValor extends javax.swing.JFrame {
         botaoInserir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Valor");
 
@@ -89,6 +96,10 @@ public class TelaInserirValor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

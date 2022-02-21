@@ -9,11 +9,11 @@ import dao.GastoDAO;
 import dao.UsuarioDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import modelo.Gasto;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import modelo.GastoTableModel;
 import visao.TelaLogin;
 import modelo.Usuario;
@@ -54,6 +54,12 @@ public class ControladorLogin {
         return usuarios;
     }
     
+    //não está sendo usado
+    public SortedSet<Usuario> Ordenar(Map<String, Usuario> map){
+        SortedSet<Usuario> sortUsuarios = new TreeSet<>(map.values());
+        return sortUsuarios;
+    }
+    
     public void inicializarAcaoBotoes() {
         telaLogin.adicionarAcaoLogar(new ActionListener() {
             @Override
@@ -64,6 +70,7 @@ public class ControladorLogin {
                         if(usuarios.get(cpfMap).getSenha().equals(telaLogin.getSenha())){
                             inicializarTelaListar(usuarios.get(cpfMap).getId());
                             telaLogin.fecharTela();
+                            telaLogin.limparTela();
                             controladorListarGastos.exibir();
                         }
                     }
@@ -98,8 +105,8 @@ public class ControladorLogin {
     }
     
     public void inicializarTelaListar(int idUsuario){
-        gastoTableModel = new GastoTableModel(GastoDAO.getTodosGastoDoUsuario(idUsuario)); // passar usuario logado
-        controladorListarGastos = new ControladorListarGastos(new TelaListar(), gastoTableModel, idUsuario);
+        gastoTableModel = new GastoTableModel(GastoDAO.getTodosGastoDoUsuario(idUsuario));
+        controladorListarGastos = new ControladorListarGastos(new TelaListar(), gastoTableModel, idUsuario,this);
     }
     
     public void exibirLogin(){

@@ -29,16 +29,18 @@ public class ControladorListarGastos {
     private GastoTableModel gastoTableModel;
     private ControladorCadastrarGasto controladorCadastrarGasto;
     private ControladorInserirValor controladorInserirValor;
+    private ControladorLogin controladorLogin;
     private Usuario usuario;
     private int idUsuario;
 
     List<Gasto> gastos;
     
-    public ControladorListarGastos(TelaListar telaListar, GastoTableModel gastoTableModel, int idUsuario) {
+    public ControladorListarGastos(TelaListar telaListar, GastoTableModel gastoTableModel, int idUsuario, ControladorLogin controladorLogin) {
         this.telaListar = telaListar;
         this.gastoTableModel = gastoTableModel;
         this.gastos = new ArrayList<>();
         this.idUsuario = idUsuario;
+        this.controladorLogin = controladorLogin;
         setTableModel();
         adicionarEventos();
         inicializarTelaCadastrarGasto();
@@ -50,6 +52,9 @@ public class ControladorListarGastos {
     
     public void exibir(){
         telaListar.exibirTela();
+    }
+    public void fechar(){
+        telaListar.fechar();
     }
     
     public void atualizarDados(){
@@ -89,7 +94,14 @@ public class ControladorListarGastos {
             public void actionPerformed(ActionEvent e) {
                 controladorInserirValor.exibir();
             }
-        });        
+        });
+        telaListar.adicionarAcaoSair(new ActionListener() {            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controladorLogin.exibirLogin();
+                fechar();
+            }
+        });
     }
     
     public String getNomeLinha(){

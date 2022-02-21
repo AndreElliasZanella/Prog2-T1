@@ -36,7 +36,7 @@ public class ControladorCadastrarGasto {
         this.telaCadastrarGasto = telaCadastrarGasto;
         this.gastoRet = gasto;
         this.controladorListarGastos = controladorListarGastos;
-        inicializarAcao();      
+        inicializarAcao();    
     }
     
     public void inicializarAcao(){

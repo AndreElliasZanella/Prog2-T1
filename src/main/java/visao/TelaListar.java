@@ -35,19 +35,9 @@ public class TelaListar extends javax.swing.JFrame {
         setVisible(true);
     }
     
-//    public void adicionarAcaoExcluir(ActionListener acao){
-//        btnExcluir.addActionListener(acao);
-//    }
-    
-//    public String getCPFLinhaSelecionada(){
-//        if(jTable.getSelectedRow() == -1){
-//            System.out.println("Nenhuma Linha selecionada");
-//            return null;
-//        }
-//            
-//        //Retorna o CPF - Primeira coluna da linha selecionada
-//        return jTable.getModel().getValueAt(jTable.getSelectedRow(), 0).toString();
-//    }
+    public void fechar(){
+        dispose();
+    }
     
     public void adicionarEventoAlteracaoTabela(TableModelListener l){
         tabela.getModel().addTableModelListener(l);
@@ -63,6 +53,10 @@ public class TelaListar extends javax.swing.JFrame {
     
     public void adicionarAcaoInserirValor(ActionListener acao){
         botaoInserirValor.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoSair(ActionListener acao){
+        botaoSair.addActionListener(acao);
     }
     
     public String getNomeLinhaSelecionada(){
@@ -85,12 +79,10 @@ public class TelaListar extends javax.swing.JFrame {
         botaoExcluir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        botaoSair = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         botaoCriarCategoria = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,21 +103,14 @@ public class TelaListar extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tabela);
 
+        botaoSair.setText("Sair");
+
         jMenu1.setText("Categorias");
 
         botaoCriarCategoria.setText("Criar Categoria");
         jMenu1.add(botaoCriarCategoria);
 
-        jMenuItem2.setText("Editar Categorias");
-        jMenu1.add(jMenuItem2);
-
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Cartão de Credito");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Usuario");
-        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -136,10 +121,12 @@ public class TelaListar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(botaoInserirValor, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 382, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoSair)
                 .addContainerGap())
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +135,8 @@ public class TelaListar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoInserirValor)
-                    .addComponent(botaoExcluir))
+                    .addComponent(botaoExcluir)
+                    .addComponent(botaoSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -194,11 +182,9 @@ public class TelaListar extends javax.swing.JFrame {
     private javax.swing.JMenuItem botaoCriarCategoria;
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoInserirValor;
+    private javax.swing.JButton botaoSair;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

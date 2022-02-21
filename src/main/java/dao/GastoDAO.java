@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import modelo.Gasto;
 
@@ -150,6 +152,16 @@ public class GastoDAO {
             System.out.println(e.getMessage());
             return null;
         }
+        Collections.sort(gastos, new Comparator<Gasto>() {
+            @Override
+            public int compare(Gasto g1, Gasto g2) {
+                            if(g1.getSaldo() > (g2.getSaldo())){
+                                return -1;
+                            }else{
+                                return 1;
+                            }
+            }
+        });
         return gastos;
     }
     
