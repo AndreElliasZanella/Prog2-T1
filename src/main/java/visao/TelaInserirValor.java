@@ -12,44 +12,38 @@ import javax.swing.JOptionPane;
  *
  * @author André
  */
-public class TelaCadastrarGasto extends javax.swing.JFrame {
+public class TelaInserirValor extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaCadastrarCategoria
+     * Creates new form TelaInserirValor
      */
-    public TelaCadastrarGasto() {
+    public TelaInserirValor() {
         initComponents();
-    }
-        
-    public void adicionarAcaoCriarGasto(ActionListener acao){
-        botaoCadastrar.addActionListener(acao);
     }
     
     public void exibirMensagem(String msg){
         JOptionPane.showMessageDialog(null, msg);
     }
     
-    public void limparTela(){
-        campoNome.setText("");
-        campoLimite.setText("");
-    }
-    
     public void exibirTela(){
         setVisible(true);
     }
     
-    public void fecharTela(){
+    public void fechar(){
         setVisible(false);
     }
     
-    public String getNome(){
-        return campoNome.getText();
+    public String getValor(){
+        return campoValor.getText();
     }
     
-    public String getLimite(){
-        return campoLimite.getText();
+    public void limparTela(){
+        campoValor.setText("");
     }
     
+    public void adicionarAcaoInserir(ActionListener acao){
+        botaoInserir.addActionListener(acao);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,47 +54,37 @@ public class TelaCadastrarGasto extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        campoNome = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        campoLimite = new javax.swing.JTextField();
-        botaoCadastrar = new javax.swing.JButton();
+        campoValor = new javax.swing.JTextField();
+        botaoInserir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("Valor");
 
-        jLabel2.setText("Limite");
-
-        botaoCadastrar.setText("Cadastrar");
+        botaoInserir.setText("Inserir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoCadastrar)
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoInserir)
+                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(campoLimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(botaoCadastrar)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(botaoInserir)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,30 +107,27 @@ public class TelaCadastrarGasto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInserirValor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInserirValor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInserirValor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastrarGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInserirValor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastrarGasto().setVisible(true);
+                new TelaInserirValor().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCadastrar;
-    private javax.swing.JTextField campoLimite;
-    private javax.swing.JTextField campoNome;
+    private javax.swing.JButton botaoInserir;
+    private javax.swing.JTextField campoValor;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

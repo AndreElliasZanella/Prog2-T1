@@ -56,6 +56,22 @@ public class TelaListar extends javax.swing.JFrame {
     public void adicionarAcaoCriarCategoria(ActionListener acao){
         botaoCriarCategoria.addActionListener(acao);
     }
+    
+    public void adicionarAcaoExcluir(ActionListener acao){
+        botaoExcluir.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoInserirValor(ActionListener acao){
+        botaoInserirValor.addActionListener(acao);
+    }
+    
+    public String getNomeLinhaSelecionada(){
+        if(tabela.getSelectedRow() == -1){
+            System.out.println("Nenhuma Linha selecionada");
+            return null;
+        }
+        return tabela.getModel().getValueAt(tabela.getSelectedRow(), 0).toString();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,7 +81,9 @@ public class TelaListar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        botaoInserirValor = new javax.swing.JButton();
+        botaoExcluir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -76,6 +94,10 @@ public class TelaListar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        botaoInserirValor.setText("Inserir Valor");
+
+        botaoExcluir.setText("Excluir");
+
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -84,18 +106,10 @@ public class TelaListar extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Categoria", "Limite", "Gastos", "diferença"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tabela);
+        ));
+        jScrollPane2.setViewportView(tabela);
 
         jMenu1.setText("Categorias");
 
@@ -119,17 +133,23 @@ public class TelaListar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(botaoInserirValor, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 382, Short.MAX_VALUE)
+                .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoInserirValor)
+                    .addComponent(botaoExcluir))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,12 +192,14 @@ public class TelaListar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem botaoCriarCategoria;
+    private javax.swing.JButton botaoExcluir;
+    private javax.swing.JButton botaoInserirValor;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

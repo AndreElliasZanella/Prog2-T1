@@ -13,13 +13,14 @@ import java.util.Set;
  * @author André
  */
 public class Usuario {
-    private int cpf;
+    private int id;
+    private String cpf;
     private String nome;
     private float receita;
     private String senha;
     Set<Categoria> categorias;
 
-    public Usuario(int cpf, String nome, float receita, String senha) {
+    public Usuario(String cpf, String nome, float receita, String senha) {
         this.cpf = cpf;
         this.nome = nome;
         this.receita = receita;
@@ -27,11 +28,11 @@ public class Usuario {
         this.categorias = new HashSet<>();        
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -57,6 +58,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     public Set<Categoria> getCategorias() {

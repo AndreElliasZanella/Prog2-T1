@@ -5,10 +5,13 @@
  */
 package controlador;
 
+import dao.GastoDAO;
+import dao.UsuarioDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import modelo.Gasto;
 import modelo.GastoTableModel;
@@ -22,36 +25,44 @@ import visao.TelaListar;
  */
 public class ControladorLogin {
     
+    //telas
     private TelaLogin telaLogin;
     private TelaCadastrarUsuario telaCadastrarUsuario;
-    private Map<Integer, Usuario> usuarios;
+    
+    //map
+    private Map<String, Usuario> usuarios = new HashMap<>();
+    
+    //controlador
     private ControladorCadastrarUsuario controladorCadastrarUsuario;
     private ControladorListarGastos controladorListarGastos;
+    
+    //tableModel
     private GastoTableModel gastoTableModel;
     
-    public ControladorLogin(TelaLogin telaLogin, Map<Integer,Usuario> usuarios) {
+    public ControladorLogin(TelaLogin telaLogin) {
         this.telaLogin = telaLogin;
-        this.usuarios = usuarios;
+        atualizarMap();
         inicializarTelaCadastrarUsuario();
-        inicializarTelaListar();
         inicializarAcaoBotoes();
-    }
-
-    public Map<Integer, Usuario> getUsuarios() {
-        return usuarios;
     }
     
     public void inserirUsuarioMap(Usuario usuario){
         usuarios.put(usuario.getCpf(), usuario);
     }
     
+    public Map<String, Usuario> getUsuarios() {
+        return usuarios;
+    }
+    
     public void inicializarAcaoBotoes() {
         telaLogin.adicionarAcaoLogar(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int cpfMap: usuarios.keySet()){
-                    if (cpfMap == Integer.parseInt(telaLogin.getCpf())){
+                atualizarMap();
+                for(String cpfMap: usuarios.keySet()){
+                    if (cpfMap.equals(telaLogin.getCpf())){
                         if(usuarios.get(cpfMap).getSenha().equals(telaLogin.getSenha())){
+                            inicializarTelaListar(usuarios.get(cpfMap).getId());
                             telaLogin.fecharTela();
                             controladorListarGastos.exibir();
                         }
@@ -71,13 +82,24 @@ public class ControladorLogin {
 
     }            
     
-    public void inicializarTelaCadastrarUsuario() {
-        controladorCadastrarUsuario = new ControladorCadastrarUsuario(new TelaCadastrarUsuario(), new Usuario(0, "", 0,""), this);
+    public void atualizarMap(){
+        List<Usuario> usuariosList;
+        usuariosList = UsuarioDAO.getTodosUsuario();
+        usuarios.clear();
+        if (!usuariosList.isEmpty()){
+            for(Usuario usu: usuariosList){
+                usuarios.put(usu.getCpf(), usu);
+            }
+        }        
     }
     
-    public void inicializarTelaListar(){
-        gastoTableModel = new GastoTableModel(new ArrayList<Gasto>());
-        controladorListarGastos = new ControladorListarGastos(new TelaListar(), gastoTableModel);
+    public void inicializarTelaCadastrarUsuario() {
+        controladorCadastrarUsuario = new ControladorCadastrarUsuario(new TelaCadastrarUsuario(), new Usuario("", "", 0,""), this);
+    }
+    
+    public void inicializarTelaListar(int idUsuario){
+        gastoTableModel = new GastoTableModel(GastoDAO.getTodosGastoDoUsuario(idUsuario)); // passar usuario logado
+        controladorListarGastos = new ControladorListarGastos(new TelaListar(), gastoTableModel, idUsuario);
     }
     
     public void exibirLogin(){

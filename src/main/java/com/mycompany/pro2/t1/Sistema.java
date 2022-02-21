@@ -6,9 +6,6 @@
 package com.mycompany.pro2.t1;
 
 import controlador.ControladorLogin;
-import java.util.HashMap;
-import java.util.Map;
-import modelo.Usuario;
 import visao.TelaLogin;
 
 /**
@@ -16,12 +13,8 @@ import visao.TelaLogin;
  * @author André
  */
 public class Sistema {
-    public static void main(String[] args) {
-        Map<Integer,Usuario> usuarios = new HashMap<>();
-        Usuario admin = new Usuario(1234,"admin",1000,"admin");
-        usuarios.put(admin.getCpf(), admin);
-        
-        ControladorLogin controlador = new ControladorLogin(new TelaLogin(), usuarios);
+    public static void main(String[] args) {        
+        ControladorLogin controlador = new ControladorLogin(new TelaLogin());
         controlador.exibirLogin();
-    }    
+    }
 }

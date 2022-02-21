@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import dao.UsuarioDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import visao.TelaCadastrarUsuario;
@@ -31,7 +32,7 @@ public class ControladorCadastrarUsuario {
         telaCadastrarUsuario.adicionarAcaoCriarUsuario(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                salvarPaciente();
+                salvarUsuario();
             }
         });
     }
@@ -40,15 +41,20 @@ public class ControladorCadastrarUsuario {
         telaCadastrarUsuario.exibirTela();
     }
     
-    public void salvarPaciente(){
-        usuario = new Usuario(Integer.parseInt(telaCadastrarUsuario.getCpf()), telaCadastrarUsuario.getNome(), Float.parseFloat(telaCadastrarUsuario.getReceita()), telaCadastrarUsuario.getSenha());
+    public void salvarUsuario(){
+        usuario = new Usuario(telaCadastrarUsuario.getCpf(), telaCadastrarUsuario.getNome(), Float.parseFloat(telaCadastrarUsuario.getReceita()), telaCadastrarUsuario.getSenha());
         if(validarUsuarioVazio()){
             if(validarUsuarioMap(usuario)){
-                controladorLogin.inserirUsuarioMap(usuario);
-                telaCadastrarUsuario.exibirMensagem("Usuario salvo com sucesso. " + usuario.getNome());
-                telaCadastrarUsuario.limparTela();
-                telaCadastrarUsuario.fecharTela();
-                controladorLogin.exibirLogin();
+                if(UsuarioDAO.salvarUsuario(usuario)){
+                    controladorLogin.inserirUsuarioMap(usuario);
+                    telaCadastrarUsuario.exibirMensagem("Usuario salvo com sucesso. " + usuario.getNome());
+                    telaCadastrarUsuario.limparTela();
+                    telaCadastrarUsuario.fecharTela();
+                    controladorLogin.exibirLogin();
+                }else{
+                    telaCadastrarUsuario.exibirMensagem("Usuário já Cadastrado");
+                }
+                
             }else{
                 telaCadastrarUsuario.exibirMensagem("Usuário já Cadastrado");
             }
@@ -61,7 +67,7 @@ public class ControladorCadastrarUsuario {
     }
     
     public boolean validarUsuarioVazio(){
-        if (this.usuario.getCpf() == 0)
+        if (this.usuario.getCpf().equals(""))
             return false;
         if (this.usuario.getNome().equals(""))
             return false;        
@@ -74,8 +80,8 @@ public class ControladorCadastrarUsuario {
     
     public boolean validarUsuarioMap(Usuario usu){
         boolean retorno = true;
-        for(int cpfMap: controladorLogin.getUsuarios().keySet()){
-            if (usu.getCpf() == cpfMap){
+        for(String cpfMap: controladorLogin.getUsuarios().keySet()){
+            if (usu.getCpf().equals(cpfMap)){
                 retorno = false;
             }
         }

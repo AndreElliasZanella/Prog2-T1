@@ -5,16 +5,18 @@
  */
 package controlador;
 
+import dao.GastoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import modelo.Gasto;
 import modelo.GastoTableModel;
+import modelo.Usuario;
 import visao.TelaCadastrarGasto;
+import visao.TelaInserirValor;
 import visao.TelaListar;
 
 /**
@@ -23,18 +25,24 @@ import visao.TelaListar;
  */
 public class ControladorListarGastos {
     private TelaListar telaListar;
+    private TelaInserirValor telaInserirValor;
     private GastoTableModel gastoTableModel;
     private ControladorCadastrarGasto controladorCadastrarGasto;
+    private ControladorInserirValor controladorInserirValor;
+    private Usuario usuario;
+    private int idUsuario;
 
     List<Gasto> gastos;
     
-    public ControladorListarGastos(TelaListar telaListar, GastoTableModel gastoTableModel) {
+    public ControladorListarGastos(TelaListar telaListar, GastoTableModel gastoTableModel, int idUsuario) {
         this.telaListar = telaListar;
         this.gastoTableModel = gastoTableModel;
         this.gastos = new ArrayList<>();
-        inicializarTelaCadastrarGasto();
+        this.idUsuario = idUsuario;
         setTableModel();
         adicionarEventos();
+        inicializarTelaCadastrarGasto();
+        inicializarAcao();
     }
     private void setTableModel(){
         telaListar.setTableModel(this.gastoTableModel);
@@ -46,8 +54,8 @@ public class ControladorListarGastos {
     
     public void atualizarDados(){
         gastoTableModel.fireTableDataChanged();
-        gastoTableModel.setGastos(gastos);
-        System.out.print("Atualizando dados..");
+        gastoTableModel.setGastos(GastoDAO.getTodosGastoDoUsuario(idUsuario));
+        System.out.print("Atualizando dados...");
     }
 
     public List<Gasto> getGastos() {
@@ -55,28 +63,49 @@ public class ControladorListarGastos {
     }
     
     public void inicializarTelaCadastrarGasto(){
-        controladorCadastrarGasto = new ControladorCadastrarGasto(new TelaCadastrarGasto(), new Gasto("",0f,0f,""));
+        controladorCadastrarGasto = new ControladorCadastrarGasto(new TelaCadastrarGasto(), new Gasto("",0f,0f,"",this.idUsuario), this);
+        controladorInserirValor = new ControladorInserirValor(this,new TelaInserirValor());
     }
     
-//    public void adicionarAcaoBotaoExcluir(){;
-//        telaListarPacientes.adicionarAcaoExcluir(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                excluirPaciente();
-//            }
-//        });
-//    }
+    public void inicializarAcao(){
+        this.telaInserirValor = new TelaInserirValor();
+        
+        telaListar.adicionarAcaoCriarCategoria(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controladorCadastrarGasto.exibir();
+            }
+        });
+        
+        telaListar.adicionarAcaoExcluir(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                excluirPaciente();
+            }
+        });
+        
+        telaListar.adicionarAcaoInserirValor(new ActionListener() {            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controladorInserirValor.exibir();
+            }
+        });        
+    }
     
-//    public void excluirPaciente(){
-//        String CPF = telaListarPacientes.getCPFLinhaSelecionada();
-//        if(PacienteDAO.excluirPaciente(CPF)){
-//            telaListarPacientes.exibirMensagem("Paciente excluido com sucesso");
-//            atualizarDados();
-//        }
-//        else {
-//            telaListarPacientes.exibirMensagem("Não foi possível excluir o paciente");
-//        }
-//    }
+    public String getNomeLinha(){
+        return telaListar.getNomeLinhaSelecionada();
+    }
+    
+    public void excluirPaciente(){
+        String nome = telaListar.getNomeLinhaSelecionada();
+        if(GastoDAO.excluirGasto(nome)){
+            telaListar.exibirMensagem("Categoria de gasto excluida com sucesso");
+            atualizarDados();
+        }
+        else {
+            telaListar.exibirMensagem("Não foi possível excluir a categoria de gasto");
+        }
+    }
     
     public void adicionarEventos(){
         telaListar.adicionarEventoAlteracaoTabela(new TableModelListener() {
@@ -90,7 +119,7 @@ public class ControladorListarGastos {
                         String Nome = (String)model.getValueAt(row, 0);
                         Gasto gasto = gastoTableModel.getGastos().get(row);
                         System.out.println(gasto);
-//                        PacienteDAO.atualizarPaciente(paciente);
+                        GastoDAO.atualizarGasto(gasto);
                         atualizarDados();
                    }
                  }

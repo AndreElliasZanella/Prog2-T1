@@ -51,7 +51,7 @@ public class GastoTableModel extends AbstractTableModel{
                 valor = gasto.getNome();
                 break;
             case COLUNA_LIMITE:
-                valor = Float.toString(gasto.getSaldo());
+                valor = Float.toString(gasto.getLimite());
                 break;
             case COLUNA_SALDO:
                 valor = Float.toString(gasto.getSaldo());
